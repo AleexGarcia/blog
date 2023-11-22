@@ -24,6 +24,9 @@ function headerComponent($currentUser)
                             <li>
                                 <a class='nav-link' href='gerenciar-usuarios.php'>Gerenciar usuários</a>
                             </li>
+                            <li>
+                                <a class='nav-link' href='editar-perfil.php'>Editar perfil</a>
+                            </li>
                         </ul>
                     </nav>
                     <a class='button' href='./actions/auth/logout.php'>logout</a>
@@ -44,6 +47,9 @@ function headerComponent($currentUser)
                             </li>
                             <li>
                                 <a class='nav-link' href='gerenciar-posts.php'>Gerenciar Posts</a>
+                            </li>
+                            <li>
+                                <a class='nav-link' href='editar-perfil.php'>Editar perfil</a>
                             </li>
                         </ul>
                     </nav>

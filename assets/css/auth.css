@@ -1,0 +1,26 @@
+
+.auth {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    max-width: 400px;
+    margin: auto;
+    gap: 1rem;
+    padding: 2rem 0;
+    text-align: start;
+    border-radius: 1rem;
+    box-shadow: 0px 0px 2px 2px rgba(255, 255, 255, 0.052);
+  }
+  
+  .auth > label > input {
+    padding: 0.5rem 0.25rem;
+    border-radius: 8px;
+  }
+  .auth > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+  

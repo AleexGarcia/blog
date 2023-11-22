@@ -3,8 +3,6 @@
 function createUser($db, $name, $email, $password)
 {
     try {
-
-        
         $user_type = 'editor';
         $hash_password = password_hash($password, PASSWORD_DEFAULT);
 
@@ -13,7 +11,7 @@ function createUser($db, $name, $email, $password)
         return $stmt->execute([$name, $email, $hash_password, $user_type]);
     } catch (PDOException $e) {
         if ($e->getCode() == 23000) {
-           header('Location: /blog/register.php?error=Email já cadastrado!');
+            header('Location: /blog/register.php?error=Email já cadastrado!');
         } else {
             throw $e;
         }
@@ -44,11 +42,19 @@ function getAll($db)
     return $users;
 }
 
-function updateUser($db, $name, $password, $user_id)
+function updateUser($db, $name, $email, $password, $user_id)
 {
-    $query = "UPDATE users SET name = ?, password = ? WHERE user_id = ?";
-    $stmt = $db->prepare($query);
-    $stmt->execute([$name, $password, $user_id]);
+    try {
+        $query = "UPDATE users SET name = ?, email = ?, password = ? WHERE user_id = ?";
+        $stmt = $db->prepare($query);
+        return $stmt->execute([$name, $email, $password, $user_id]);
+    } catch (PDOException $e) {
+        if ($e->getCode() == 23000) {
+            header('Location: /blog/register.php?error=Email já cadastrado!');
+        } else {
+            throw $e;
+        }
+    }
 }
 
 
@@ -56,7 +62,7 @@ function deleteUserById($db, $userId)
 {
     $query = "DELETE FROM users WHERE user_id = ?";
     $stmt = $db->prepare($query);
-    $stmt->execute([$userId]);
+    return $stmt->execute([$userId]);
 }
 
 
@@ -67,4 +73,3 @@ function getUserById($db, $userId)
     $stmt->execute([$userId]);
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
-

@@ -25,7 +25,14 @@ require_once('./components/form-post.component.php');
     headerComponent($currentUser);
     ?>
     <main>
-       <?php formPostComponent('./actions/posts/create.php',$currentUser) ?>
+        <?php
+        require_once('./modules/post.module.php');
+        require_once('./modules/pdo.module.php');
+        $db = createPdo('db_sistema_blog', 'localhost', 'root', '');
+        $post_id = $_GET['id'];
+        $post = getPostById($db, $post_id);
+        formPostComponent('./actions/posts/update.php',$currentUser,$post);
+        ?>
     </main>
     <?php
     footerComponent();

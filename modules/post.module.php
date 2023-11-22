@@ -22,6 +22,13 @@ function getAllPosts($db)
     $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+function getAllPostsByUser($db,$userId)
+{
+    $query = "SELECT * FROM posts WHERE user_id = ?";
+    $stmt = $db->prepare($query);
+    $stmt->execute([$userId]);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
 
 function updatePost($db, $title, $photo, $maintext, $postId)
 {

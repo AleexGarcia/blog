@@ -1,0 +1,40 @@
+.post-page{
+    display: flex;
+    flex-direction: column;
+  }
+  .conteudo-principal{
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    text-align: justify;
+  }
+  .conteudo-principal > h2 {
+    text-align: center;
+  }
+  .conteudo-principal__img{
+    width: 100%;
+    max-width: 600px;
+    margin: auto;
+  }
+  
+  .comentarios{
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .comentarios__list{
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+  }
+  .comentarios__list > li {
+    padding: 1rem;
+    border-radius: 8px;
+    background-color: beige;
+  }
+  .comentarios__list > li > p {
+    background-color: beige;
+    color: black;
+  }
+  
