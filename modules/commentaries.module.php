@@ -8,13 +8,13 @@ function createComment($db, $comment, $postId, $userId = null)
     return $stmt->execute([$comment, $postId, $userId]);
 }
 
-function getCommentById($db, $commentId)
-{
-    $query = "SELECT * FROM comentaries WHERE id = ?";
-    $stmt = $db->prepare($query);
-    $stmt->execute([$commentId]);
-    return $stmt->fetch(PDO::FETCH_ASSOC);
-}
+// function getCommentById($db, $commentId)
+// {
+//     $query = "SELECT * FROM comentaries WHERE id = ?";
+//     $stmt = $db->prepare($query);
+//     $stmt->execute([$commentId]);
+//     return $stmt->fetch(PDO::FETCH_ASSOC);
+// }
 
 function getAllCommentsByPostId($db, $postId)
 {
@@ -24,12 +24,12 @@ function getAllCommentsByPostId($db, $postId)
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
-function updateComment($db, $comment, $commentId)
-{
-    $query = "UPDATE comentaries SET comentario = ? WHERE id = ?";
-    $stmt = $db->prepare($query);
-    $stmt->execute([$comment, $commentId]);
-}
+// function updateComment($db, $comment, $commentId)
+// {
+//     $query = "UPDATE comentaries SET comentario = ? WHERE id = ?";
+//     $stmt = $db->prepare($query);
+//     $stmt->execute([$comment, $commentId]);
+// }
 
 function deleteCommentById($db, $commentId)
 {

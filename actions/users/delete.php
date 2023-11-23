@@ -2,7 +2,7 @@
     require_once('../../modules/pdo.module.php');
     require_once('../../modules/user.module.php');
     require_once('../../modules/post.module.php');
-
+  
     $db = createPdo('db_sistema_blog','localhost','root','');
     $user_id = isset($_GET['id']) ? $_GET['id'] : null;
 
