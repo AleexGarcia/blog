@@ -1,7 +1,8 @@
-<?php 
+<?php
 
-function createComment($db, $comment, $postId, $userId)
+function createComment($db, $comment, $postId, $userId = null)
 {
+
     $query = "INSERT INTO comentaries (comentario, post_id, user_id) VALUES (?, ?, ?)";
     $stmt = $db->prepare($query);
     return $stmt->execute([$comment, $postId, $userId]);

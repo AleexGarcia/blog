@@ -29,6 +29,8 @@
     gap: .5rem;
   }
   .comentarios__list > li {
+    display: flex;
+    justify-content: space-between;
     padding: 1rem;
     border-radius: 8px;
     background-color: beige;
@@ -37,4 +39,19 @@
     background-color: beige;
     color: black;
   }
+  .comentarios__list > li > a {
+    border-radius: 8px;
+    padding: .125rem;
+  }
   
+  .comentario-form{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .comentario-form > textarea {
+    padding: 1rem;
+  }
+  .comentario-form > button {
+    align-self: flex-end;
+  }

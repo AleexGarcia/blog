@@ -31,29 +31,37 @@ require_once('./components/post.component.php');
         <section class="post-page">
             <a href="./index.php">Voltar</a>
             <div class="conteudo-principal">
-              <?php  postComponent($post) ?>
+                <?php postComponent($post) ?>
             </div>
         </section>
-        <!-- <section class="comentarios">
+        <section class="comentarios">
             <h2>Comentarios: </h2>
-            <form action="" method="post">
-                <textarea name="" id="" cols="30" rows="10"></textarea>
+            <form class="comentario-form" id="comentario_form" action="./actions/posts/comentarios/create.php" method="post">
+                <?php
+                if ($currentUser) {
+                    echo "<input hidden name='user_id' type='text' value='{$currentUser['user_id']}'>";
+                }
+                echo "<input hidden name='post_id' type='text' value='{$post_id}'>"
+                ?>
+                <textarea id="comentario" required name="comentario" cols="30" rows="5" maxlength="250"></textarea>
                 <button class="button" type="submit">Adicionar comentário</button>
             </form>
             <ul class="comentarios__list">
-                <li>
-                    <p>Comentario</p>
-                </li>
-                <li>
-                    <p>Comentario</p>
-                </li>
-                <li>
-                    <p>Comentario</p>
-                </li>
+                <?php
+                require_once('./modules/commentaries.module.php');
+                $commentaties = getAllCommentsByPostId($db, $post_id);
+                if (!empty($commentaties)) {
+                    foreach ($commentaties as $comment) {
+                        echo  "<li>
+                            <p>{$comment['comentario']}</p>";
+                       if($currentUser) echo "<a href='./actions/posts/comentarios/delete.php?post_id={$post_id}&id={$comment['id']}'>Excluir</a>";
+                        echo "</li>";
+                    }
+                }
+                ?>
             </ul>
-        </section> -->
+        </section>
     </main>
     <?php footerComponent() ?>
 </body>
-
 </html>
