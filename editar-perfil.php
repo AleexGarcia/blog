@@ -7,6 +7,7 @@ $currentUser = isValidSession();
 require_once('./components/header.component.php');
 require_once('./components/footer.component.php');
 require_once('./components/error.component.php');
+isLoggedIn($currentUser);
 ?>
 
 <head>

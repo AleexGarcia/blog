@@ -50,3 +50,10 @@ function deletePostById($db, $postId)
     $stmt = $db->prepare($query);
     $stmt->execute([$postId]);
 }
+
+function deletePostsByUserId($db, $userId)
+{
+    $query = "DELETE FROM posts WHERE user_id = ?";
+    $stmt = $db->prepare($query);
+    $stmt->execute([$userId]);
+}

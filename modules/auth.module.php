@@ -62,3 +62,13 @@ function isValidSession()
     }
     return null;
 }
+
+function isLoggedIn($currentUser)
+{
+    if(!$currentUser){
+        header('Location: /blog/index.php');
+        exit;
+    }
+}
+
+

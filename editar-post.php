@@ -9,6 +9,7 @@ require_once('./components/footer.component.php');
 require_once('./components/error.component.php');
 require_once('./components/small-post.component.php');
 require_once('./components/form-post.component.php');
+isLoggedIn($currentUser);
 ?>
 
 <head>
