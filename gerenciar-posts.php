@@ -33,35 +33,68 @@ isLoggedIn($currentUser);
                 <a class="button" href="./criar-post.php">Criar novo post</a>
             </div>
             <div>
-                <h3>Seus posts</h3>
-                <?php errorComponent() ?>
-                <div class="posts-list">
-                    <?php
-                    require_once('./modules/pdo.module.php');
-                    require_once('./modules/post.module.php');
-                    $db = createPdo('db_sistema_blog', 'localhost', 'root', '');
-                    $posts = getAllPostsByUser($db, $currentUser['user_id']);
+                <div>
+                    <?php errorComponent() ?>
+                    <h1>Meus posts</h1>
+                    <div class="posts-list">
+                        <?php
+                        require_once('./modules/pdo.module.php');
+                        require_once('./modules/post.module.php');
+                        $db = createPdo('db_sistema_blog', 'localhost', 'root', '');
+                        if ($currentUser['user_type'] == 'admin') {
+                            $allposts = getAllPosts($db);
+                        }
 
-                    if (!empty($posts)) {
-                        foreach ($posts as $post) {
-                    ?>
-                            <div class="gerenciar-post-card">
-                                <div class="controls">
-                                    <a href='./editar-post.php?id=<?php echo $post['id']; ?>'><img src='./assets/imgs/editar.svg' alt='Editar' /></a>
-                                    <a href='./actions/posts/delete.php?id=<?php echo $post['id']; ?>'><img src='./assets/imgs/lixeira.svg' alt='Excluir' /></a>
+                        $myPosts = getAllPostsByUser($db, $currentUser['user_id']);
+
+                        if (!empty($myPosts)) {
+                            foreach ($myPosts as $index => $post) {
+                        ?>
+                                <div class="gerenciar-post-card">
+                                    <div class="controls">
+                                        <a href='./editar-post.php?id=<?php echo $post['id']; ?>'><img src='./assets/imgs/editar.svg' alt='Editar' /></a>
+                                        <a href='./actions/posts/delete.php?id=<?php echo $post['id']; ?>'><img src='./assets/imgs/lixeira.svg' alt='Excluir' /></a>
+                                    </div>
+                                    <?php bigPostComponent($post['id'], $post['title'], $post['photo']); ?>
                                 </div>
-                                <?php bigPostComponent($post['id'], $post['title'],$post['photo']); ?>
-                               
-                            </div>
+                            <?php
+                            }
+                        } else {
+                            ?>
+                            <p>Não há nenhum post realizado.</p>
                         <?php
                         }
-                    } else {
                         ?>
-                        <p>Não há nenhum post realizado.</p>
-                    <?php
-                    }
-                    ?>
+                    </div>
                 </div>
+                <?php
+                if ($currentUser['user_type'] == 'admin') {
+                    $allposts = getAllPosts($db);
+                ?>
+                    <div>
+                        <h1>Todos os posts</h1>
+                        <div class="posts-list">
+                            <?php if (!empty($allposts)) {
+                                foreach ($allposts as $index => $post) {
+                            ?>
+                                    <div class="gerenciar-post-card">
+                                        <div class="controls">
+                                            <a href='./editar-post.php?id=<?php echo $post['id']; ?>'><img src='./assets/imgs/editar.svg' alt='Editar' /></a>
+                                            <a href='./actions/posts/delete.php?id=<?php echo $post['id']; ?>'><img src='./assets/imgs/lixeira.svg' alt='Excluir' /></a>
+                                        </div>
+                                        <?php bigPostComponent($post['id'], $post['title'], $post['photo']); ?>
+                                    </div>
+                                <?php
+                                }
+                            } else {
+                                ?>
+                                <p>Não há nenhum post realizado.</p>
+                            <?php
+                            }
+                            ?>
+                        </div>
+                    </div>
+                <?php } ?>
             </div>
         </section>
     </main>

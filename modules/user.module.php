@@ -41,13 +41,19 @@ function getAll($db)
     return $users;
 }
 
-function updateUser($db, $name, $email, $password, $user_id)
+function updateUser($db, $name, $email, $password, $user_id, $user_type = null)
 {
     try {
         $hash_password = password_hash($password, PASSWORD_DEFAULT);
-        $query = "UPDATE users SET name = ?, email = ?, password = ? WHERE user_id = ?";
-        $stmt = $db->prepare($query);
-        return $stmt->execute([$name, $email, $hash_password, $user_id]);
+        if($user_type){
+            $query = "UPDATE users SET name = ?, email = ?, password = ?, user_type = ? WHERE user_id = ?";
+            $stmt = $db->prepare($query);
+            return $stmt->execute([$name, $email, $hash_password,$user_type ,$user_id]);
+        }else{
+            $query = "UPDATE users SET name = ?, email = ?, password = ? WHERE user_id = ?";
+            $stmt = $db->prepare($query);
+            return $stmt->execute([$name, $email, $hash_password, $user_id]);
+        }
     } catch (PDOException $e) {
         if ($e->getCode() == 23000) {
             header('Location: /blog/register.php?error=Email já cadastrado!');

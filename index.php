@@ -39,7 +39,7 @@ require_once('./components/small-post.component.php');
                 }
                 echo '</div>';
             } else {
-                echo '<p>Erro ao acessar o servidor!</p>';
+                echo '<p>Nenhuma postagem encontradar!</p>';
             }
             ?>
         </section>
@@ -57,7 +57,7 @@ require_once('./components/small-post.component.php');
                         }
                     }
                 } else {
-                    echo '<p>Nenhuma postagem encontrada!</p>';
+                    echo '<p>Erro!</p>';
                 }
                 ?>
             </div>
