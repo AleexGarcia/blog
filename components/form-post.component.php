@@ -5,7 +5,8 @@ function formPostComponent($action, $currentUser, $post = null)
         echo "
             <form class='form-post' action='{$action}' method='post' enctype='multipart/form-data'>
             <legend>Edite uma nova postagem: </legend>
-            <input hidden name='user_id' type='number' value='{$currentUser['user_id']}'>
+            <input hidden name='post_id' type='number' value='{$post['id']}'>
+            <input hidden name='url' type='text' value='{$post['photo']}'>
             <div class='form-post-box'>
             <label for='title'>Titulo:</label>
             <input id='title' name='title' value='{$post['title']}' type='text'>

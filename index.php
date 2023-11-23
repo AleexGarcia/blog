@@ -24,15 +24,45 @@ require_once('./components/small-post.component.php');
     <main>
         <section class="posts">
             <?php
-            bigPostComponent(1, 'Titulo - 1');
-            echo "<div class='small-posts'>";
-                smallPostComponent(2, 'Titulo - 2');
-                smallPostComponent(3, 'Titulo - 3');
-                smallPostComponent(4, 'Titulo - 4');
-                smallPostComponent(5, 'Titulo - 5');
-            echo '</div>';
+            require_once('./modules/post.module.php');
+            require_once('./modules/pdo.module.php');
+            $db = createPdo('db_sistema_blog', 'localhost', 'root', '');
+
+            $posts = getAllPosts($db);
+            if (!empty($posts)) {
+                bigPostComponent($posts[0]['id'], $posts[0]['title'], $posts[0]['photo']);
+                echo "<div class='small-posts'>";
+                foreach ($posts as $index => $post) {
+                    if ($index > 0 && $index < 5) {
+                        smallPostComponent($post['id'], $post['title'], $post['photo']);
+                    }
+                }
+                echo '</div>';
+            } else {
+                echo '<p>Erro ao acessar o servidor!</p>';
+            }
             ?>
         </section>
+        <?php if (sizeof($posts) > 5) { ?>
+        <section class="other-posts">
+            <h3>Mais postagens</h3>
+            <div class="other-posts__cards">
+                <?php
+                if (!empty($posts)) {
+                    foreach ($posts as $index => $post) {
+                        if ($index >=  5) {
+                            echo"<div class='other-card'>";
+                            bigPostComponent($post['id'], $post['title'], $post['photo']);
+                            echo"</div>";
+                        }
+                    }
+                } else {
+                    echo '<p>Erro ao acessar o servidor!</p>';
+                }
+                ?>
+            </div>
+        </section>
+      <?php }  ?>
     </main>
     <?php footerComponent() ?>
 </body>

@@ -32,9 +32,16 @@ function getAllPostsByUser($db,$userId)
 
 function updatePost($db, $title, $photo, $maintext, $postId)
 {
-    $query = "UPDATE posts SET title = ?, photo = ?, maintext = ? WHERE id = ?";
-    $stmt = $db->prepare($query);
-    $stmt->execute([$title, $photo, $maintext, $postId]);
+    if($photo){
+        $query = "UPDATE posts SET title = ?, photo = ?, maintext = ? WHERE id = ?";
+        $stmt = $db->prepare($query);
+        $stmt->execute([$title, $photo, $maintext, $postId]);
+    }else{
+        $query = "UPDATE posts SET title = ?, maintext = ? WHERE id = ?";
+        $stmt = $db->prepare($query);
+        $stmt->execute([$title, $maintext, $postId]);
+    }
+
 }
 
 function deletePostById($db, $postId)

@@ -12,7 +12,6 @@ $maintext = filter_input(INPUT_POST, 'maintext', FILTER_SANITIZE_FULL_SPECIAL_CH
 $photo = $_FILES['photo'];
 
 if ($photo['name'] != NULL && $user_id && $title && $maintext ) {
-    $maintext = nl2br($maintext);
     $url =  movePhoto($photo);
     createPost($db,$title,$url,$maintext,$user_id);
     header('Location: /blog/index.php');

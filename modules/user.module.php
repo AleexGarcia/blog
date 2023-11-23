@@ -5,7 +5,6 @@ function createUser($db, $name, $email, $password)
     try {
         $user_type = 'editor';
         $hash_password = password_hash($password, PASSWORD_DEFAULT);
-
         $query = "INSERT INTO users (name, email, password, user_type) VALUES (?, ?, ?, ?)";
         $stmt = $db->prepare($query);
         return $stmt->execute([$name, $email, $hash_password, $user_type]);
@@ -45,9 +44,10 @@ function getAll($db)
 function updateUser($db, $name, $email, $password, $user_id)
 {
     try {
+        $hash_password = password_hash($password, PASSWORD_DEFAULT);
         $query = "UPDATE users SET name = ?, email = ?, password = ? WHERE user_id = ?";
         $stmt = $db->prepare($query);
-        return $stmt->execute([$name, $email, $password, $user_id]);
+        return $stmt->execute([$name, $email, $hash_password, $user_id]);
     } catch (PDOException $e) {
         if ($e->getCode() == 23000) {
             header('Location: /blog/register.php?error=Email já cadastrado!');
